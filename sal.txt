@@ -1,0 +1,901 @@
+['Ikpw', 'Iwik', 'Jkpw', 'Jwik', 'SDEValueError', '__builtins__', '__cached__', '__doc__', '__file__', '__loader__', '__name__', '__package__', '__path__', '__spec__', '__version__', 'absolute_import', 'deltaW', 'integrate', 'itoEuler', 'itoSRI2', 'itoint', 'stratHeun', 'stratKP2iS', 'stratSRS2', 'stratint', 'wiener']
+Help on _Feature in module __future__ object:
+
+class _Feature(builtins.object)
+ |  _Feature(optionalRelease, mandatoryRelease, compiler_flag)
+ |  
+ |  Methods defined here:
+ |  
+ |  __init__(self, optionalRelease, mandatoryRelease, compiler_flag)
+ |      Initialize self.  See help(type(self)) for accurate signature.
+ |  
+ |  __repr__(self)
+ |      Return repr(self).
+ |  
+ |  getMandatoryRelease(self)
+ |      Return release in which this feature will become mandatory.
+ |      
+ |      This is a 5-tuple, of the same form as sys.version_info, or, if
+ |      the feature was dropped, is None.
+ |  
+ |  getOptionalRelease(self)
+ |      Return first release in which this feature was recognized.
+ |      
+ |      This is a 5-tuple, of the same form as sys.version_info.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Data descriptors defined here:
+ |  
+ |  __dict__
+ |      dictionary for instance variables (if defined)
+ |  
+ |  __weakref__
+ |      list of weak references to the object (if defined)
+
+None
+Help on function deltaW in module sdeint.wiener:
+
+deltaW(N, m, h)
+    Generate sequence of Wiener increments for m independent Wiener
+    processes W_j(t) j=0..m-1 for each of N time intervals of length h.    
+    
+    Returns:
+      dW (array of shape (N, m)): The [n, j] element has the value
+      W_j((n+1)*h) - W_j(n*h)
+
+None
+Help on module sdeint.integrate in sdeint:
+
+NAME
+    sdeint.integrate
+
+DESCRIPTION
+    Numerical integration algorithms for Ito and Stratonovich stochastic
+    ordinary differential equations.
+    
+    Usage:
+        itoint(f, G, y0, tspan)  for Ito equation dy = f dt + G dW
+        stratint(f, G, y0, tspan)  for Stratonovich equation dy = f dt + G \circ dW
+    
+        y0 is the initial value
+        tspan is an array of time values (currently these must be equally spaced)
+        function f is the deterministic part of the system (scalar or  dx1  vector)
+        function G is the stochastic part of the system (scalar or  d x m matrix)
+    
+    sdeint will choose an algorithm for you. Or you can choose one explicitly:
+    
+    itoEuler: the Euler-Maruyama algorithm for Ito equations.
+    stratHeun: the Stratonovich Heun algorithm for Stratonovich equations.
+    itoSRI2: the Roessler2010 order 1.0 strong Stochastic Runge-Kutta
+      algorithm SRI2 for Ito equations.
+    stratSRS2: the Roessler2010 order 1.0 strong Stochastic Runge-Kutta
+      algorithm SRS2 for Stratonovich equations.
+    stratKP2iS: the Kloeden and Platen two-step implicit order 1.0 strong algorithm
+      for Stratonovich equations.
+
+CLASSES
+    builtins.Exception(builtins.BaseException)
+        Error
+            SDEValueError
+    
+    class Error(builtins.Exception)
+     |  Common base class for all non-exit exceptions.
+     |  
+     |  Method resolution order:
+     |      Error
+     |      builtins.Exception
+     |      builtins.BaseException
+     |      builtins.object
+     |  
+     |  Data descriptors defined here:
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from builtins.Exception:
+     |  
+     |  __init__(self, /, *args, **kwargs)
+     |      Initialize self.  See help(type(self)) for accurate signature.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods inherited from builtins.Exception:
+     |  
+     |  __new__(*args, **kwargs) from builtins.type
+     |      Create and return a new object.  See help(type) for accurate signature.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from builtins.BaseException:
+     |  
+     |  __delattr__(self, name, /)
+     |      Implement delattr(self, name).
+     |  
+     |  __getattribute__(self, name, /)
+     |      Return getattr(self, name).
+     |  
+     |  __reduce__(...)
+     |      Helper for pickle.
+     |  
+     |  __repr__(self, /)
+     |      Return repr(self).
+     |  
+     |  __setattr__(self, name, value, /)
+     |      Implement setattr(self, name, value).
+     |  
+     |  __setstate__(...)
+     |  
+     |  __str__(self, /)
+     |      Return str(self).
+     |  
+     |  with_traceback(...)
+     |      Exception.with_traceback(tb) --
+     |      set self.__traceback__ to tb and return self.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors inherited from builtins.BaseException:
+     |  
+     |  __cause__
+     |      exception cause
+     |  
+     |  __context__
+     |      exception context
+     |  
+     |  __dict__
+     |  
+     |  __suppress_context__
+     |  
+     |  __traceback__
+     |  
+     |  args
+    
+    class SDEValueError(Error)
+     |  Thrown if integration arguments fail some basic sanity checks
+     |  
+     |  Method resolution order:
+     |      SDEValueError
+     |      Error
+     |      builtins.Exception
+     |      builtins.BaseException
+     |      builtins.object
+     |  
+     |  Data descriptors inherited from Error:
+     |  
+     |  __weakref__
+     |      list of weak references to the object (if defined)
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from builtins.Exception:
+     |  
+     |  __init__(self, /, *args, **kwargs)
+     |      Initialize self.  See help(type(self)) for accurate signature.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods inherited from builtins.Exception:
+     |  
+     |  __new__(*args, **kwargs) from builtins.type
+     |      Create and return a new object.  See help(type) for accurate signature.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Methods inherited from builtins.BaseException:
+     |  
+     |  __delattr__(self, name, /)
+     |      Implement delattr(self, name).
+     |  
+     |  __getattribute__(self, name, /)
+     |      Return getattr(self, name).
+     |  
+     |  __reduce__(...)
+     |      Helper for pickle.
+     |  
+     |  __repr__(self, /)
+     |      Return repr(self).
+     |  
+     |  __setattr__(self, name, value, /)
+     |      Implement setattr(self, name, value).
+     |  
+     |  __setstate__(...)
+     |  
+     |  __str__(self, /)
+     |      Return str(self).
+     |  
+     |  with_traceback(...)
+     |      Exception.with_traceback(tb) --
+     |      set self.__traceback__ to tb and return self.
+     |  
+     |  ----------------------------------------------------------------------
+     |  Data descriptors inherited from builtins.BaseException:
+     |  
+     |  __cause__
+     |      exception cause
+     |  
+     |  __context__
+     |      exception context
+     |  
+     |  __dict__
+     |  
+     |  __suppress_context__
+     |  
+     |  __traceback__
+     |  
+     |  args
+
+FUNCTIONS
+    itoEuler(f, G, y0, tspan, dW=None)
+        Use the Euler-Maruyama algorithm to integrate the Ito equation
+        dy = f(y,t)dt + G(y,t) dW(t)
+        
+        where y is the d-dimensional state vector, f is a vector-valued function,
+        G is an d x m matrix-valued function giving the noise coefficients and
+        dW(t) = (dW_1, dW_2, ... dW_m) is a vector of independent Wiener increments
+        
+        Args:
+          f: callable(y, t) returning (d,) array
+             Vector-valued function to define the deterministic part of the system
+          G: callable(y, t) returning (d,m) array
+             Matrix-valued function to define the noise coefficients of the system
+          y0: array of shape (d,) giving the initial state vector y(t==0)
+          tspan (array): The sequence of time points for which to solve for y.
+            These must be equally spaced, e.g. np.arange(0,10,0.005)
+            tspan[0] is the intial time corresponding to the initial state y0.
+          dW: optional array of shape (len(tspan)-1, d). This is for advanced use,
+            if you want to use a specific realization of the d independent Wiener
+            processes. If not provided Wiener increments will be generated randomly
+        
+        Returns:
+          y: array, with shape (len(tspan), len(y0))
+             With the initial value y0 in the first row
+        
+        Raises:
+          SDEValueError
+        
+        See also:
+          G. Maruyama (1955) Continuous Markov processes and stochastic equations
+          Kloeden and Platen (1999) Numerical Solution of Differential Equations
+    
+    itoSRI2(f, G, y0, tspan, Imethod=<function Ikpw at 0x109a5d430>, dW=None, I=None)
+        Use the Roessler2010 order 1.0 strong Stochastic Runge-Kutta algorithm
+        SRI2 to integrate an Ito equation dy = f(y,t)dt + G(y,t)dW(t)
+        
+        where y is d-dimensional vector variable, f is a vector-valued function,
+        G is a d x m matrix-valued function giving the noise coefficients and
+        dW(t) is a vector of m independent Wiener increments.
+        
+        This algorithm is suitable for Ito systems with an arbitrary noise
+        coefficient matrix G (i.e. the noise does not need to be scalar, diagonal,
+        or commutative). The algorithm has order 2.0 convergence for the
+        deterministic part alone and order 1.0 strong convergence for the complete
+        stochastic system.
+        
+        Args:
+          f: A function f(y, t) returning an array of shape (d,)
+             Vector-valued function to define the deterministic part of the system
+        
+          G: The d x m coefficient function G can be given in two different ways:
+        
+             You can provide a single function G(y, t) that returns an array of
+             shape (d, m). In this case the entire matrix G() will be evaluated
+             2m+1 times at each time step so complexity grows quadratically with m.
+        
+             Alternatively you can provide a list of m functions g(y, t) each
+             defining one column of G (each returning an array of shape (d,).
+             In this case each g will be evaluated 3 times at each time step so
+             complexity grows linearly with m. If your system has large m and
+             G involves complicated functions, consider using this way.
+        
+          y0: array of shape (d,) giving the initial state vector y(t==0)
+        
+          tspan (array): The sequence of time points for which to solve for y.
+            These must be equally spaced, e.g. np.arange(0,10,0.005)
+            tspan[0] is the intial time corresponding to the initial state y0.
+        
+          Imethod (callable, optional): which function to use to simulate repeated
+            Ito integrals. Here you can choose either sdeint.Ikpw (the default) or
+            sdeint.Iwik (which is more accurate but uses a lot of memory in the
+            current implementation).
+        
+          dW: optional array of shape (len(tspan)-1, d). 
+          I: optional array of shape (len(tspan)-1, m, m).
+            These optional arguments dW and I are for advanced use, if you want to
+            use a specific realization of the d independent Wiener processes and
+            their multiple integrals at each time step. If not provided, suitable
+            values will be generated randomly.
+          
+        Returns:
+          y: array, with shape (len(tspan), len(y0))
+             With the initial value y0 in the first row
+        
+        Raises:
+          SDEValueError
+        
+        See also:
+          A. Roessler (2010) Runge-Kutta Methods for the Strong Approximation of
+            Solutions of Stochastic Differential Equations
+    
+    itoint(f, G, y0, tspan)
+        Numerically integrate Ito equation  dy = f dt + G dW
+    
+    stratHeun(f, G, y0, tspan, dW=None)
+        Use the Stratonovich Heun algorithm to integrate Stratonovich equation
+        dy = f(y,t)dt + G(y,t) \circ dW(t)
+        
+        where y is the d-dimensional state vector, f is a vector-valued function,
+        G is an d x m matrix-valued function giving the noise coefficients and
+        dW(t) = (dW_1, dW_2, ... dW_m) is a vector of independent Wiener increments
+        
+        Args:
+          f: callable(y, t) returning (d,) array
+             Vector-valued function to define the deterministic part of the system
+          G: callable(y, t) returning (d,m) array
+             Matrix-valued function to define the noise coefficients of the system
+          y0: array of shape (d,) giving the initial state vector y(t==0)
+          tspan (array): The sequence of time points for which to solve for y.
+            These must be equally spaced, e.g. np.arange(0,10,0.005)
+            tspan[0] is the intial time corresponding to the initial state y0.
+          dW: optional array of shape (len(tspan)-1, d). This is for advanced use,
+            if you want to use a specific realization of the d independent Wiener
+            processes. If not provided Wiener increments will be generated randomly
+        
+        Returns:
+          y: array, with shape (len(tspan), len(y0))
+             With the initial value y0 in the first row
+        
+        Raises:
+          SDEValueError
+        
+        See also:
+          W. Rumelin (1982) Numerical Treatment of Stochastic Differential
+             Equations
+          R. Mannella (2002) Integration of Stochastic Differential Equations
+             on a Computer
+          K. Burrage, P. M. Burrage and T. Tian (2004) Numerical methods for strong
+             solutions of stochastic differential equations: an overview
+    
+    stratKP2iS(f, G, y0, tspan, Jmethod=<function Jkpw at 0x109a5d4c0>, gam=None, al1=None, al2=None, rtol=0.0001, dW=None, J=None)
+        Use the Kloeden and Platen two-step implicit order 1.0 strong algorithm
+        to integrate a Stratonovich equation dy = f(y,t)dt + G(y,t)\circ dW(t)
+        
+        This semi-implicit algorithm may be useful for stiff systems. The noise
+        does not need to be scalar, diagonal, or commutative.
+        
+        This algorithm is defined in Kloeden and Platen (1999) section 12.4,
+        equations (4.5) and (4.7). Here implementing that scheme with default
+        parameters \gamma_k = lpha_{1,k} = lpha_{2,k} = 0.5 for k=1..d using
+        MINPACK HYBRD algorithm to solve the implicit vector equation at each step.
+        
+        Args:
+          f: A function f(y, t) returning an array of shape (d,) to define the
+            deterministic part of the system
+          G: A function G(y, t) returning an array of shape (d, m) to define the 
+            noise coefficients of the system
+          y0: array of shape (d,) giving the initial state
+          tspan (array): Sequence of equally spaced time points
+          Jmethod (callable, optional): which function to use to simulate repeated
+            Stratonovich integrals. Here you can choose either sdeint.Jkpw (the
+            default) or sdeint.Jwik (which is more accurate but uses a lot of
+            memory in the current implementation).
+          gam, al1, al2 (optional arrays of shape (d,)): These can configure free
+            parameters \gamma_k, lpha_{1,k}, lpha_{2,k} of the algorithm.
+            You can omit these, then the default values 0.5 will be used.
+          rtol (float, optional): Relative error tolerance. The default is 1e-4.
+            This is the relative tolerance used when solving the implicit equation
+            for Y_{n+1} at each step. It does not mean that the overall sample path
+            approximation has this relative precision.
+          dW: optional array of shape (len(tspan)-1, d). 
+          J: optional array of shape (len(tspan)-1, m, m).
+            These optional arguments dW and J are for advanced use, if you want to
+            use a specific realization of the d independent Wiener processes and
+            their multiple integrals at each time step. If not provided, suitable
+            values will be generated randomly.
+        
+        Returns:
+          y: array, with shape (len(tspan), len(y0))
+        
+        Raises:
+          SDEValueError, RuntimeError
+        
+        See also:
+          P. Kloeden and E. Platen (1999) Numerical Solution of Stochastic 
+            Differential Equations, revised and updated 3rd printing.
+    
+    stratSRS2(f, G, y0, tspan, Jmethod=<function Jkpw at 0x109a5d4c0>, dW=None, J=None)
+        Use the Roessler2010 order 1.0 strong Stochastic Runge-Kutta algorithm
+        SRS2 to integrate a Stratonovich equation dy = f(y,t)dt + G(y,t)\circ dW(t)
+        
+        where y is d-dimensional vector variable, f is a vector-valued function,
+        G is a d x m matrix-valued function giving the noise coefficients and
+        dW(t) is a vector of m independent Wiener increments.
+        
+        This algorithm is suitable for Stratonovich systems with an arbitrary noise
+        coefficient matrix G (i.e. the noise does not need to be scalar, diagonal,
+        or commutative). The algorithm has order 2.0 convergence for the
+        deterministic part alone and order 1.0 strong convergence for the complete
+        stochastic system.
+        
+        Args:
+          f: A function f(y, t) returning an array of shape (d,)
+             Vector-valued function to define the deterministic part of the system
+        
+          G: The d x m coefficient function G can be given in two different ways:
+        
+             You can provide a single function G(y, t) that returns an array of
+             shape (d, m). In this case the entire matrix G() will be evaluated
+             2m+1 times at each time step so complexity grows quadratically with m.
+        
+             Alternatively you can provide a list of m functions g(y, t) each
+             defining one column of G (each returning an array of shape (d,).
+             In this case each g will be evaluated 3 times at each time step so
+             complexity grows linearly with m. If your system has large m and
+             G involves complicated functions, consider using this way.
+        
+          y0: array of shape (d,) giving the initial state vector y(t==0)
+        
+          tspan (array): The sequence of time points for which to solve for y.
+            These must be equally spaced, e.g. np.arange(0,10,0.005)
+            tspan[0] is the intial time corresponding to the initial state y0.
+        
+          Jmethod (callable, optional): which function to use to simulate repeated
+            Stratonovich integrals. Here you can choose either sdeint.Jkpw (the
+            default) or sdeint.Jwik (which is more accurate but uses a lot of
+            memory in the current implementation).
+        
+          dW: optional array of shape (len(tspan)-1, d). 
+          J: optional array of shape (len(tspan)-1, m, m).
+            These optional arguments dW and J are for advanced use, if you want to
+            use a specific realization of the d independent Wiener processes and
+            their multiple integrals at each time step. If not provided, suitable
+            values will be generated randomly.
+        
+        Returns:
+          y: array, with shape (len(tspan), len(y0))
+             With the initial value y0 in the first row
+        
+        Raises:
+          SDEValueError
+        
+        See also:
+          A. Roessler (2010) Runge-Kutta Methods for the Strong Approximation of
+            Solutions of Stochastic Differential Equations
+    
+    stratint(f, G, y0, tspan)
+        Numerically integrate Stratonovich equation  dy = f dt + G \circ dW
+
+DATA
+    absolute_import = _Feature((2, 5, 0, 'alpha', 1), (3, 0, 0, 'alpha', 0...
+
+FILE
+    /Library/Python/3.8/site-packages/sdeint/integrate.py
+
+
+None
+Help on function itoEuler in module sdeint.integrate:
+
+itoEuler(f, G, y0, tspan, dW=None)
+    Use the Euler-Maruyama algorithm to integrate the Ito equation
+    dy = f(y,t)dt + G(y,t) dW(t)
+    
+    where y is the d-dimensional state vector, f is a vector-valued function,
+    G is an d x m matrix-valued function giving the noise coefficients and
+    dW(t) = (dW_1, dW_2, ... dW_m) is a vector of independent Wiener increments
+    
+    Args:
+      f: callable(y, t) returning (d,) array
+         Vector-valued function to define the deterministic part of the system
+      G: callable(y, t) returning (d,m) array
+         Matrix-valued function to define the noise coefficients of the system
+      y0: array of shape (d,) giving the initial state vector y(t==0)
+      tspan (array): The sequence of time points for which to solve for y.
+        These must be equally spaced, e.g. np.arange(0,10,0.005)
+        tspan[0] is the intial time corresponding to the initial state y0.
+      dW: optional array of shape (len(tspan)-1, d). This is for advanced use,
+        if you want to use a specific realization of the d independent Wiener
+        processes. If not provided Wiener increments will be generated randomly
+    
+    Returns:
+      y: array, with shape (len(tspan), len(y0))
+         With the initial value y0 in the first row
+    
+    Raises:
+      SDEValueError
+    
+    See also:
+      G. Maruyama (1955) Continuous Markov processes and stochastic equations
+      Kloeden and Platen (1999) Numerical Solution of Differential Equations
+
+None
+Help on function stratSRS2 in module sdeint.integrate:
+
+stratSRS2(f, G, y0, tspan, Jmethod=<function Jkpw at 0x109a5d4c0>, dW=None, J=None)
+    Use the Roessler2010 order 1.0 strong Stochastic Runge-Kutta algorithm
+    SRS2 to integrate a Stratonovich equation dy = f(y,t)dt + G(y,t)\circ dW(t)
+    
+    where y is d-dimensional vector variable, f is a vector-valued function,
+    G is a d x m matrix-valued function giving the noise coefficients and
+    dW(t) is a vector of m independent Wiener increments.
+    
+    This algorithm is suitable for Stratonovich systems with an arbitrary noise
+    coefficient matrix G (i.e. the noise does not need to be scalar, diagonal,
+    or commutative). The algorithm has order 2.0 convergence for the
+    deterministic part alone and order 1.0 strong convergence for the complete
+    stochastic system.
+    
+    Args:
+      f: A function f(y, t) returning an array of shape (d,)
+         Vector-valued function to define the deterministic part of the system
+    
+      G: The d x m coefficient function G can be given in two different ways:
+    
+         You can provide a single function G(y, t) that returns an array of
+         shape (d, m). In this case the entire matrix G() will be evaluated
+         2m+1 times at each time step so complexity grows quadratically with m.
+    
+         Alternatively you can provide a list of m functions g(y, t) each
+         defining one column of G (each returning an array of shape (d,).
+         In this case each g will be evaluated 3 times at each time step so
+         complexity grows linearly with m. If your system has large m and
+         G involves complicated functions, consider using this way.
+    
+      y0: array of shape (d,) giving the initial state vector y(t==0)
+    
+      tspan (array): The sequence of time points for which to solve for y.
+        These must be equally spaced, e.g. np.arange(0,10,0.005)
+        tspan[0] is the intial time corresponding to the initial state y0.
+    
+      Jmethod (callable, optional): which function to use to simulate repeated
+        Stratonovich integrals. Here you can choose either sdeint.Jkpw (the
+        default) or sdeint.Jwik (which is more accurate but uses a lot of
+        memory in the current implementation).
+    
+      dW: optional array of shape (len(tspan)-1, d). 
+      J: optional array of shape (len(tspan)-1, m, m).
+        These optional arguments dW and J are for advanced use, if you want to
+        use a specific realization of the d independent Wiener processes and
+        their multiple integrals at each time step. If not provided, suitable
+        values will be generated randomly.
+    
+    Returns:
+      y: array, with shape (len(tspan), len(y0))
+         With the initial value y0 in the first row
+    
+    Raises:
+      SDEValueError
+    
+    See also:
+      A. Roessler (2010) Runge-Kutta Methods for the Strong Approximation of
+        Solutions of Stochastic Differential Equations
+
+None
+Help on function itoSRI2 in module sdeint.integrate:
+
+itoSRI2(f, G, y0, tspan, Imethod=<function Ikpw at 0x109a5d430>, dW=None, I=None)
+    Use the Roessler2010 order 1.0 strong Stochastic Runge-Kutta algorithm
+    SRI2 to integrate an Ito equation dy = f(y,t)dt + G(y,t)dW(t)
+    
+    where y is d-dimensional vector variable, f is a vector-valued function,
+    G is a d x m matrix-valued function giving the noise coefficients and
+    dW(t) is a vector of m independent Wiener increments.
+    
+    This algorithm is suitable for Ito systems with an arbitrary noise
+    coefficient matrix G (i.e. the noise does not need to be scalar, diagonal,
+    or commutative). The algorithm has order 2.0 convergence for the
+    deterministic part alone and order 1.0 strong convergence for the complete
+    stochastic system.
+    
+    Args:
+      f: A function f(y, t) returning an array of shape (d,)
+         Vector-valued function to define the deterministic part of the system
+    
+      G: The d x m coefficient function G can be given in two different ways:
+    
+         You can provide a single function G(y, t) that returns an array of
+         shape (d, m). In this case the entire matrix G() will be evaluated
+         2m+1 times at each time step so complexity grows quadratically with m.
+    
+         Alternatively you can provide a list of m functions g(y, t) each
+         defining one column of G (each returning an array of shape (d,).
+         In this case each g will be evaluated 3 times at each time step so
+         complexity grows linearly with m. If your system has large m and
+         G involves complicated functions, consider using this way.
+    
+      y0: array of shape (d,) giving the initial state vector y(t==0)
+    
+      tspan (array): The sequence of time points for which to solve for y.
+        These must be equally spaced, e.g. np.arange(0,10,0.005)
+        tspan[0] is the intial time corresponding to the initial state y0.
+    
+      Imethod (callable, optional): which function to use to simulate repeated
+        Ito integrals. Here you can choose either sdeint.Ikpw (the default) or
+        sdeint.Iwik (which is more accurate but uses a lot of memory in the
+        current implementation).
+    
+      dW: optional array of shape (len(tspan)-1, d). 
+      I: optional array of shape (len(tspan)-1, m, m).
+        These optional arguments dW and I are for advanced use, if you want to
+        use a specific realization of the d independent Wiener processes and
+        their multiple integrals at each time step. If not provided, suitable
+        values will be generated randomly.
+      
+    Returns:
+      y: array, with shape (len(tspan), len(y0))
+         With the initial value y0 in the first row
+    
+    Raises:
+      SDEValueError
+    
+    See also:
+      A. Roessler (2010) Runge-Kutta Methods for the Strong Approximation of
+        Solutions of Stochastic Differential Equations
+
+None
+Help on function itoint in module sdeint.integrate:
+
+itoint(f, G, y0, tspan)
+    Numerically integrate Ito equation  dy = f dt + G dW
+
+None
+Help on function stratHeun in module sdeint.integrate:
+
+stratHeun(f, G, y0, tspan, dW=None)
+    Use the Stratonovich Heun algorithm to integrate Stratonovich equation
+    dy = f(y,t)dt + G(y,t) \circ dW(t)
+    
+    where y is the d-dimensional state vector, f is a vector-valued function,
+    G is an d x m matrix-valued function giving the noise coefficients and
+    dW(t) = (dW_1, dW_2, ... dW_m) is a vector of independent Wiener increments
+    
+    Args:
+      f: callable(y, t) returning (d,) array
+         Vector-valued function to define the deterministic part of the system
+      G: callable(y, t) returning (d,m) array
+         Matrix-valued function to define the noise coefficients of the system
+      y0: array of shape (d,) giving the initial state vector y(t==0)
+      tspan (array): The sequence of time points for which to solve for y.
+        These must be equally spaced, e.g. np.arange(0,10,0.005)
+        tspan[0] is the intial time corresponding to the initial state y0.
+      dW: optional array of shape (len(tspan)-1, d). This is for advanced use,
+        if you want to use a specific realization of the d independent Wiener
+        processes. If not provided Wiener increments will be generated randomly
+    
+    Returns:
+      y: array, with shape (len(tspan), len(y0))
+         With the initial value y0 in the first row
+    
+    Raises:
+      SDEValueError
+    
+    See also:
+      W. Rumelin (1982) Numerical Treatment of Stochastic Differential
+         Equations
+      R. Mannella (2002) Integration of Stochastic Differential Equations
+         on a Computer
+      K. Burrage, P. M. Burrage and T. Tian (2004) Numerical methods for strong
+         solutions of stochastic differential equations: an overview
+
+None
+Help on function stratKP2iS in module sdeint.integrate:
+
+stratKP2iS(f, G, y0, tspan, Jmethod=<function Jkpw at 0x109a5d4c0>, gam=None, al1=None, al2=None, rtol=0.0001, dW=None, J=None)
+    Use the Kloeden and Platen two-step implicit order 1.0 strong algorithm
+    to integrate a Stratonovich equation dy = f(y,t)dt + G(y,t)\circ dW(t)
+    
+    This semi-implicit algorithm may be useful for stiff systems. The noise
+    does not need to be scalar, diagonal, or commutative.
+    
+    This algorithm is defined in Kloeden and Platen (1999) section 12.4,
+    equations (4.5) and (4.7). Here implementing that scheme with default
+    parameters \gamma_k = lpha_{1,k} = lpha_{2,k} = 0.5 for k=1..d using
+    MINPACK HYBRD algorithm to solve the implicit vector equation at each step.
+    
+    Args:
+      f: A function f(y, t) returning an array of shape (d,) to define the
+        deterministic part of the system
+      G: A function G(y, t) returning an array of shape (d, m) to define the 
+        noise coefficients of the system
+      y0: array of shape (d,) giving the initial state
+      tspan (array): Sequence of equally spaced time points
+      Jmethod (callable, optional): which function to use to simulate repeated
+        Stratonovich integrals. Here you can choose either sdeint.Jkpw (the
+        default) or sdeint.Jwik (which is more accurate but uses a lot of
+        memory in the current implementation).
+      gam, al1, al2 (optional arrays of shape (d,)): These can configure free
+        parameters \gamma_k, lpha_{1,k}, lpha_{2,k} of the algorithm.
+        You can omit these, then the default values 0.5 will be used.
+      rtol (float, optional): Relative error tolerance. The default is 1e-4.
+        This is the relative tolerance used when solving the implicit equation
+        for Y_{n+1} at each step. It does not mean that the overall sample path
+        approximation has this relative precision.
+      dW: optional array of shape (len(tspan)-1, d). 
+      J: optional array of shape (len(tspan)-1, m, m).
+        These optional arguments dW and J are for advanced use, if you want to
+        use a specific realization of the d independent Wiener processes and
+        their multiple integrals at each time step. If not provided, suitable
+        values will be generated randomly.
+    
+    Returns:
+      y: array, with shape (len(tspan), len(y0))
+    
+    Raises:
+      SDEValueError, RuntimeError
+    
+    See also:
+      P. Kloeden and E. Platen (1999) Numerical Solution of Stochastic 
+        Differential Equations, revised and updated 3rd printing.
+
+None
+Help on function stratSRS2 in module sdeint.integrate:
+
+stratSRS2(f, G, y0, tspan, Jmethod=<function Jkpw at 0x109a5d4c0>, dW=None, J=None)
+    Use the Roessler2010 order 1.0 strong Stochastic Runge-Kutta algorithm
+    SRS2 to integrate a Stratonovich equation dy = f(y,t)dt + G(y,t)\circ dW(t)
+    
+    where y is d-dimensional vector variable, f is a vector-valued function,
+    G is a d x m matrix-valued function giving the noise coefficients and
+    dW(t) is a vector of m independent Wiener increments.
+    
+    This algorithm is suitable for Stratonovich systems with an arbitrary noise
+    coefficient matrix G (i.e. the noise does not need to be scalar, diagonal,
+    or commutative). The algorithm has order 2.0 convergence for the
+    deterministic part alone and order 1.0 strong convergence for the complete
+    stochastic system.
+    
+    Args:
+      f: A function f(y, t) returning an array of shape (d,)
+         Vector-valued function to define the deterministic part of the system
+    
+      G: The d x m coefficient function G can be given in two different ways:
+    
+         You can provide a single function G(y, t) that returns an array of
+         shape (d, m). In this case the entire matrix G() will be evaluated
+         2m+1 times at each time step so complexity grows quadratically with m.
+    
+         Alternatively you can provide a list of m functions g(y, t) each
+         defining one column of G (each returning an array of shape (d,).
+         In this case each g will be evaluated 3 times at each time step so
+         complexity grows linearly with m. If your system has large m and
+         G involves complicated functions, consider using this way.
+    
+      y0: array of shape (d,) giving the initial state vector y(t==0)
+    
+      tspan (array): The sequence of time points for which to solve for y.
+        These must be equally spaced, e.g. np.arange(0,10,0.005)
+        tspan[0] is the intial time corresponding to the initial state y0.
+    
+      Jmethod (callable, optional): which function to use to simulate repeated
+        Stratonovich integrals. Here you can choose either sdeint.Jkpw (the
+        default) or sdeint.Jwik (which is more accurate but uses a lot of
+        memory in the current implementation).
+    
+      dW: optional array of shape (len(tspan)-1, d). 
+      J: optional array of shape (len(tspan)-1, m, m).
+        These optional arguments dW and J are for advanced use, if you want to
+        use a specific realization of the d independent Wiener processes and
+        their multiple integrals at each time step. If not provided, suitable
+        values will be generated randomly.
+    
+    Returns:
+      y: array, with shape (len(tspan), len(y0))
+         With the initial value y0 in the first row
+    
+    Raises:
+      SDEValueError
+    
+    See also:
+      A. Roessler (2010) Runge-Kutta Methods for the Strong Approximation of
+        Solutions of Stochastic Differential Equations
+
+None
+Help on function stratint in module sdeint.integrate:
+
+stratint(f, G, y0, tspan)
+    Numerically integrate Stratonovich equation  dy = f dt + G \circ dW
+
+None
+Help on module sdeint.wiener in sdeint:
+
+NAME
+    sdeint.wiener
+
+DESCRIPTION
+    Simulation of standard multiple stochastic integrals, both Ito and Stratonovich
+    I_{ij}(t) = \int_{0}^{t}\int_{0}^{s} dW_i(u) dW_j(s)  (Ito)
+    J_{ij}(t) = \int_{0}^{t}\int_{0}^{s} \circ dW_i(u) \circ dW_j(s)  (Stratonovich)
+    
+    These multiple integrals I and J are important building blocks that will be
+    used by most of the higher-order algorithms that integrate multi-dimensional
+    SODEs.
+    
+    We first implement the method of Kloeden, Platen and Wright (1992) to
+    approximate the integrals by the first n terms from the series expansion of a
+    Brownian bridge process. By default using n=5.
+    
+    Finally we implement the method of Wiktorsson (2001) which improves on the
+    previous method by also approximating the tail-sum distribution by a
+    multivariate normal distribution.
+    
+    References:
+      P. Kloeden, E. Platen and I. Wright (1992) The approximation of multiple
+        stochastic integrals
+      M. Wiktorsson (2001) Joint Characteristic Function and Simultaneous
+        Simulation of Iterated Ito Integrals for Multiple Independent Brownian
+        Motions
+
+FUNCTIONS
+    Ikpw(dW, h, n=5)
+        matrix I approximating repeated Ito integrals for each of N time
+        intervals, based on the method of Kloeden, Platen and Wright (1992).
+        
+        Args:
+          dW (array of shape (N, m)): giving m independent Weiner increments for
+            each time step N. (You can make this array using sdeint.deltaW())
+          h (float): the time step size
+          n (int, optional): how many terms to take in the series expansion
+        
+        Returns:
+          (A, I) where
+            A: array of shape (N, m, m) giving the Levy areas that were used.
+            I: array of shape (N, m, m) giving an m x m matrix of repeated Ito 
+            integral values for each of the N time intervals.
+    
+    Iwik(dW, h, n=5)
+        matrix I approximating repeated Ito integrals for each of N time
+        intervals, using the method of Wiktorsson (2001).
+        
+        Args:
+          dW (array of shape (N, m)): giving m independent Weiner increments for
+            each time step N. (You can make this array using sdeint.deltaW())
+          h (float): the time step size
+          n (int, optional): how many terms to take in the series expansion
+        
+        Returns:
+          (Atilde, I) where
+            Atilde: array of shape (N, m(m-1)/2, 1) giving the area integrals used.
+            I: array of shape (N, m, m) giving an m x m matrix of repeated Ito
+            integral values for each of the N time intervals.
+    
+    Jkpw(dW, h, n=5)
+        matrix J approximating repeated Stratonovich integrals for each of N
+        time intervals, based on the method of Kloeden, Platen and Wright (1992).
+        
+        Args:
+          dW (array of shape (N, m)): giving m independent Weiner increments for
+            each time step N. (You can make this array using sdeint.deltaW())
+          h (float): the time step size
+          n (int, optional): how many terms to take in the series expansion
+        
+        Returns:
+          (A, J) where
+            A: array of shape (N, m, m) giving the Levy areas that were used.
+            J: array of shape (N, m, m) giving an m x m matrix of repeated
+            Stratonovich integral values for each of the N time intervals.
+    
+    Jwik(dW, h, n=5)
+        matrix J approximating repeated Stratonovich integrals for each of N
+        time intervals, using the method of Wiktorsson (2001).
+        
+        Args:
+          dW (array of shape (N, m)): giving m independent Weiner increments for
+            each time step N. (You can make this array using sdeint.deltaW())
+          h (float): the time step size
+          n (int, optional): how many terms to take in the series expansion
+        
+        Returns:
+          (Atilde, J) where
+            Atilde: array of shape (N, m(m-1)/2, 1) giving the area integrals used.
+            J: array of shape (N, m, m) giving an m x m matrix of repeated
+            Stratonovich integral values for each of the N time intervals.
+    
+    deltaW(N, m, h)
+        Generate sequence of Wiener increments for m independent Wiener
+        processes W_j(t) j=0..m-1 for each of N time intervals of length h.    
+        
+        Returns:
+          dW (array of shape (N, m)): The [n, j] element has the value
+          W_j((n+1)*h) - W_j(n*h)
+
+DATA
+    numpy_version = [1, 19, 5]
+
+FILE
+    /Library/Python/3.8/site-packages/sdeint/wiener.py
+
+
+None
